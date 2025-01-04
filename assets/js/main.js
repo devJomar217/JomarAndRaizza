@@ -32,11 +32,24 @@ const updateTimeTogether = () => {
     const now = new Date().getTime();
     const distance = now - startDate;
 
+    const totalMonths = Math.floor(distance / (1000 * 60 * 60 * 24 * 30.4375)); // Approximate average days in a month
+    const years = Math.floor(totalMonths / 12);
+    const months = totalMonths % 12;
+
     // Calculate time elapsed
     const days = Math.floor(distance / (1000 * 60 * 60 * 24));
     const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
     const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    // Update the years and months element
+    const yearsElement = document.getElementById('years');
+    if (years > 0) {
+        yearsElement.textContent = `${years} year${years > 1 ? 's' : ''} and ${months} month${months > 1 ? 's' : ''}`;
+    } else if (months > 0) {
+        yearsElement.textContent = `${months} month${months > 1 ? 's' : ''}`;
+    } 
+
 
     // Display the result
     document.getElementById('days').textContent = days;
